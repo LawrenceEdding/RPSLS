@@ -70,7 +70,7 @@ class Gesture:
         self.win_text = text
 
     def win_term(self, loser_name):
-        victory_index = self.loses_vs.index(loser_name)
+        victory_index = self.wins_vs.index(loser_name)
         print(f'{self.name} {self.win_text[victory_index]} {loser_name}')
 
     def check_match(self, opposing_gesture):
