@@ -9,7 +9,7 @@ class Character:
         self.possible_gestures = [Rock(), Paper(), Scissors(), Lizard(), Spock()]
 
     def showdown(self, opponent):
-        outcome = self.chosen_move.check_match(self.chosen_move, opponent.chosen_move)  # Check if error
+        outcome = self.chosen_move.check_match(opponent.chosen_move)  # Check if error
         if outcome == 'win':
             self.points += 1
             self.chosen_move.win_term(opponent.chosen_move.name)
@@ -20,6 +20,9 @@ class Character:
         elif outcome == 'tie':
             print(f'DRAW!')
         # run function for gesture
+
+    def choose_move(self):
+        pass
 
 
 class Player(Character):
@@ -110,8 +113,23 @@ class Game:
                 print(f'Please enter one of the corresponding numbers')
                 os.system("pause")
 
+    def winner(self):
+        if self.p1.points == 2:
+            print(f'Player 1 has won.\n')
+            return True
+        elif self.p2.points == 2:
+            print(f'Player 2 has won\n')
+            return True
+
     def run_game(self):
-        pass
+        self.assign_character()
+        while True:
+            self.p1.choose_move()
+            self.p2.choose_move()
+            self.do_round()
+            if self.winner():
+                self.winner()
+                break
 
 
 class Rock(Gesture):
