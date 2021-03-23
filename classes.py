@@ -1,10 +1,12 @@
 import os
+import random
 
 
 class Character:
     def __init__(self):
         self.points = 0
         self.chosen_move = Gesture()
+        self.possible_gestures = [Rock(), Paper(), Scissors(), Lizard(), Spock()]
 
     def showdown(self, opponent):
         outcome = self.chosen_move.check_match(self.chosen_move, opponent.chosen_move)  # Check if error
@@ -25,12 +27,30 @@ class Player(Character):
         super().__init__()
 
     def choose_move(self):
-        pass
+        while True:
+            try:
+                response = int(input(f'Choose your move\n'
+                                     f'[0] Rock\n'
+                                     f'[1] Paper\n'
+                                     f'[2] Scissors\n'
+                                     f'[3] Lizard\n'
+                                     f'[4] Spock\n'
+                                     f'Choose the correlating number.'))
+                if 5 > response >= 0:
+                    break
+                else:
+                    print(f'Sorry please choose a valid number')
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...\n")
+        self.chosen_move = self.possible_gestures[response]
 
 
 class Cpu(Character):
     def __init__(self):
         super().__init__()
+
+    def choose_move(self):
+        self.chosen_move = self.possible_gestures[random.randint(0, 4)]
 
 
 class Gesture:
