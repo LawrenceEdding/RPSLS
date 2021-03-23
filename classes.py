@@ -1,3 +1,4 @@
+import os
 
 
 class Character:
@@ -6,7 +7,7 @@ class Character:
         self.chosen_move = Gesture()
 
     def showdown(self, opponent):
-        outcome = self.chosen_move.check_match(self.chosen_move, opponent.chosen_move)
+        outcome = self.chosen_move.check_match(self.chosen_move, opponent.chosen_move)  # Check if error
         if outcome == 'win':
             self.points += 1
             self.chosen_move.win_term(opponent.chosen_move.name)
@@ -22,6 +23,9 @@ class Character:
 class Player(Character):
     def __init__(self):
         super().__init__()
+
+    def choose_move(self):
+        pass
 
 
 class Cpu(Character):
@@ -57,9 +61,37 @@ class Gesture:
 
 class Game:
     def __init__(self):
-        self.p1 = Character()
+        self.p1 = Player()
         self.p2 = Character()
         self.match = 0
+
+    def do_round(self):
+        self.match += 1
+        print(f'Prepare for round {self.match}')
+        self.p1.showdown(self.p2)
+
+    def assign_character(self):
+        while True:
+            print(f'Would you like to play vs the cpu or a friend?\n'
+                  f'[1] CPU\n'
+                  f'[2] Human\n'
+                  f'[3] Quit\n'
+                  f'Enter the corresponding number.')
+            response = input()
+            if response == '1':
+                self.p2 = Cpu()
+                break
+            if response == '2':
+                self.p2 = Player()
+                break
+            if response == '3':
+                quit()
+            else:
+                print(f'Please enter one of the corresponding numbers')
+                os.system("pause")
+
+    def run_game(self):
+        pass
 
 
 class Rock(Gesture):
