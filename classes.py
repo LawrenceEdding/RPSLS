@@ -1,4 +1,3 @@
-import os
 import random
 
 
@@ -71,7 +70,7 @@ class Gesture:
 
     def win_term(self, loser_name):
         victory_index = self.wins_vs.index(loser_name)
-        print(f'{self.name} {self.win_text[victory_index]} {loser_name}')
+        print(f'{self.name.capitalize()} {self.win_text[victory_index]} {loser_name}.')
 
     def check_match(self, opposing_gesture):
         if opposing_gesture.name in self.wins_vs:
@@ -111,7 +110,6 @@ class Game:
                 quit()
             else:
                 print(f'Please enter one of the corresponding numbers')
-                os.system("pause")
 
     def winner(self):
         if self.p1.points == 2:
